@@ -1,58 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:minesweeper/ui/core/button.dart';
+import 'package:minesweeper/ui/core/widgets/page_route.dart';
+import 'package:minesweeper/ui/core/widgets/simple_button.dart';
+import 'package:minesweeper/ui/page/view_models/options_view_model.dart';
+import 'package:minesweeper/ui/page/widgets/options_screen.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key, required this.title});
-
-  final String title;
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text(
-          widget.title,
-          style: Theme.of(context).textTheme.titleLarge,
-        ),
-        backgroundColor: Colors.white,
-        shape: const Border(
-          bottom: BorderSide(color: Colors.black, width: 3.0),
-        ),
-      ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Column(
-            //mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Expanded(
                 child: Center(
                   child: SizedBox(
-                    height: 200,
-                    width: 200,
-                    child: SvgPicture.asset('assets/svgs/mine.svg',
+                    height: 250,
+                    width: 250,
+                    child: SvgPicture.asset(
+                      'assets/mine.svg',
                       fit: BoxFit.contain,
                     ),
                   ),
-                )
+                ),
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
-                spacing: 12,
+                spacing: 16,
                 children: [
                   SimpleButton(
                     text: "Play",
                     filled: true,
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        SimplePageRoute<void>(
+                          builder: (context) => OptionsScreen(),
+                        ),
+                      );
+                    },
                     onLongPress: () {},
                   ),
                   SimpleButton(
@@ -62,7 +60,7 @@ class _HomePageState extends State<HomePage> {
                     onLongPress: () {},
                   ),
                 ],
-              )
+              ),
             ],
           ),
         ),

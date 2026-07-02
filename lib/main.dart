@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:minesweeper/ui/home/widgets/home_screen.dart';
+import 'package:minesweeper/ui/page/widgets/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -9,7 +9,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -19,16 +18,24 @@ class MyApp extends StatelessWidget {
         textTheme: TextTheme(
           titleLarge: GoogleFonts.lato(
             fontWeight: FontWeight.w900,
-            fontSize: 21,
+            fontSize: 24,
           ),
           displaySmall: GoogleFonts.lato(
             fontWeight: FontWeight.w900,
-            fontSize: 21,
+            fontSize: 24,
+          ),
+          bodyMedium: GoogleFonts.lato(
+            fontWeight: FontWeight.w900,
+            fontSize: 22,
+          ),
+          bodySmall: GoogleFonts.lato(
+            fontWeight: FontWeight.w900,
+            fontSize: 18,
           ),
         ),
       ),
 
-      home: const HomePage(title: 'Minesweeper'),
+      home: const HomeScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

@@ -1,17 +1,12 @@
 # minesweeper
 
-A new Flutter project.
+## background
 
-## Getting Started
+Having begun to use the [Mudita Kompakt](https://mudita.com/) as my daily driver cellphone, I discovered a small open source community building and sharing apps that target the Kompakt with it's e-ink screen and minimalist design. 
 
-This project is a starting point for a Flutter application.
+This small implementation of minesweeper was a personal project to learn flutter and hone my skills in mobile app design and development. While this app could have easily been vibe-coded in a single prompt, I would not have learned anything about Flutter's architecture, nor would I have gained any experience designing and building mobile apps. Perhaps most importantly, I would not have any of the satisfaction of an engineer seeing a project from start to finish, building something from the ground up. 
 
-A few resources to get you started if this is your first Flutter project:
+## architecture
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+## design
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
