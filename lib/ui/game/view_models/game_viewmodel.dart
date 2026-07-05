@@ -12,10 +12,9 @@ class GameViewModel extends ChangeNotifier {
   final OptionsViewModel options;
 
   int gameState = 0;
-
   late BoardState boardState;
 
-  late int mineCount = options.difficulty.mines; 
+  late int mineCount = options.difficulty.mines;
   bool cellPressedDown = false;
 
   Timer? _timer;
@@ -23,20 +22,27 @@ class GameViewModel extends ChangeNotifier {
   bool _running = false;
   bool _paused = false;
 
-  void _checkGame() {
+  bool menuOpen = false;
 
+  void openMenu() {
+    pauseTimer();
+    menuOpen = true;
+    notifyListeners();
+  }
+
+  void _checkGame() {
     int opened = 0;
 
     // Check for open mines (Lose Case)
     for (final row in boardState) {
       for (final cell in row) {
-        if (cell.open){
+        if (cell.open) {
           if (cell.value == 9) {
             _endGame(1);
             return;
           }
           opened++;
-        } 
+        }
       }
     }
 
@@ -48,7 +54,6 @@ class GameViewModel extends ChangeNotifier {
       _endGame(2);
       return;
     }
-
   }
 
   void _endGame(int result) {
@@ -58,10 +63,9 @@ class GameViewModel extends ChangeNotifier {
     switch (result) {
       case 1:
         _openAllMines();
-        // You LOSE!!
+      // You LOSE!!
       case 2:
-        // YOU WIN!!
-      
+      // YOU WIN!!
     }
 
     notifyListeners();
@@ -287,12 +291,9 @@ class GameViewModel extends ChangeNotifier {
     }
 
     mineCount = options.difficulty.mines - mc;
-
   }
 
-  
   String getCurrentSmiley() {
-
     String smileType = 'normal';
 
     switch (gameState) {
@@ -305,7 +306,6 @@ class GameViewModel extends ChangeNotifier {
     }
 
     return "assets/$smileType-smile.svg";
-
   }
 
   //
@@ -325,6 +325,7 @@ class GameViewModel extends ChangeNotifier {
 
   void pauseTimer() {
     _paused = true;
+    notifyListeners();
   }
 
   void resumeTimer() {

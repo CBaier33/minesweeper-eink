@@ -36,4 +36,3 @@ class GameBar extends StatelessWidget {
     );
   }
 }
-

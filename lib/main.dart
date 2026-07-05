@@ -20,6 +20,10 @@ class MyApp extends StatelessWidget {
             fontWeight: FontWeight.w900,
             fontSize: 24,
           ),
+          titleMedium: GoogleFonts.lato(
+              fontWeight: FontWeight.w900,
+              fontSize: 26
+          ),
           titleSmall: GoogleFonts.lato(
             fontWeight: FontWeight.w900,
             fontSize: 14,

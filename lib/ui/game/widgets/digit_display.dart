@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DigitDisplay extends StatelessWidget {
-  const DigitDisplay({ super.key, required this.data });
+  const DigitDisplay({super.key, required this.data});
 
   final int data;
 

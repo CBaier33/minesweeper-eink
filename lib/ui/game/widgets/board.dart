@@ -39,7 +39,7 @@ Widget _buildCells(BuildContext context, int index, GridSize grid) {
       currentGame.setCellPressed(false);
     },
     onLongPressStart: (_) {
-      //currentGame.setCellPressed(true);
+      currentGame.setCellPressed(true);
       currentGame.onLongPressCell(cell);
     },
     onLongPressEnd: (_) {
