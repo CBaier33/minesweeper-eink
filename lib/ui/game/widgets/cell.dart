@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:minesweeper/ui/game/view_models/game_viewmodel.dart';
+import 'package:minesweeper/ui/page/view_models/options_view_model.dart';
 import 'package:provider/provider.dart';
 
 class Cell extends StatelessWidget {
-  const Cell({super.key, required this.gridPoint});
+  const Cell({super.key, required this.gridPoint, required this.i});
 
   final CellPoint gridPoint;
+  final int i;
 
   // KEY
   // 0 -> Empty
@@ -23,8 +25,8 @@ class Cell extends StatelessWidget {
       switch (cell.flagType) {
         case FlagType.questionMark:
           return Container(
-            width: 10,
-            height: 10,
+            width: 25,
+            height: 25,
             decoration: BoxDecoration(
               color: Colors.white,
               border: Border(
@@ -35,14 +37,7 @@ class Cell extends StatelessWidget {
               ),
             ),
             child: Center(
-              child: SizedBox(
-                height: 25,
-                width: 25,
-                child: Text(
-                  "?",
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-              ),
+              child: Text("?", style: Theme.of(context).textTheme.titleLarge),
             ),
           );
         case FlagType.flag:
@@ -82,16 +77,14 @@ class Cell extends StatelessWidget {
             ),
           );
       }
-      
     } else {
-
       switch (cell.value) {
         case 0:
           return Container(
             width: 10,
             height: 10,
             decoration: BoxDecoration(
-              color: Colors.grey,
+              color: Colors.grey[400],
               border: Border(
                 top: BorderSide(color: Colors.black, width: 2.0),
                 bottom: BorderSide(color: Colors.black, width: 2.0),
@@ -102,10 +95,11 @@ class Cell extends StatelessWidget {
           );
         case 9:
           return Container(
-            width: 10,
-            height: 10,
+            width: 25,
+            height: 25,
+            padding: EdgeInsets.all(2),
             decoration: BoxDecoration(
-              color: Colors.grey,
+              color: Colors.grey[400],
               border: Border(
                 top: BorderSide(color: Colors.black, width: 2.0),
                 bottom: BorderSide(color: Colors.black, width: 2.0),
@@ -114,19 +108,15 @@ class Cell extends StatelessWidget {
               ),
             ),
             child: Center(
-              child: SizedBox(
-                height: 25,
-                width: 25,
-                child: SvgPicture.asset('assets/mine.svg', fit: BoxFit.contain),
-              ),
+              child: SvgPicture.asset('assets/mine.svg', fit: BoxFit.contain),
             ),
           );
         default:
           return Container(
-            width: 10,
-            height: 10,
+            width: 25,
+            height: 25,
             decoration: BoxDecoration(
-              color: Colors.grey,
+              color: Colors.grey[400],
               border: Border(
                 top: BorderSide(color: Colors.black, width: 2.0),
                 bottom: BorderSide(color: Colors.black, width: 2.0),
@@ -135,13 +125,11 @@ class Cell extends StatelessWidget {
               ),
             ),
             child: Center(
-              child: SizedBox(
-                height: 25,
-                width: 25,
-                child: Text(
-                  (cell.value).toString(),
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
+              child: Text(
+                (cell.value).toString(),
+                style: (currentGame.options.difficulty == DifficultyLevel.easy)
+                   ? Theme.of(context).textTheme.titleLarge
+                   : Theme.of(context).textTheme.titleSmall,
               ),
             ),
           );

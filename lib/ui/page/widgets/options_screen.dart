@@ -16,9 +16,8 @@ class OptionsScreen extends StatefulWidget {
 }
 
 class _OptionsScreenState extends State<OptionsScreen> {
-
   late final OptionsViewModel optionsViewModel;
-  
+
   @override
   void initState() {
     super.initState();
@@ -50,6 +49,55 @@ class _OptionsScreenState extends State<OptionsScreen> {
                   ChangeNotifierProvider.value(
                     value: optionsViewModel,
                     child: DifficultySelector(),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            "Use Question Marks",
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              optionsViewModel.questionMarks =
+                                  !optionsViewModel.questionMarks;
+                            });
+                          },
+                          child: Container(
+                            width: 48,
+                            height: 28,
+                            padding: const EdgeInsets.all(3),
+                            decoration: BoxDecoration(
+                              color: optionsViewModel.questionMarks
+                                  ? Colors.black
+                                  : Colors.white,
+                              borderRadius: BorderRadius.circular(13),
+                              border: Border.all(color: Colors.black),
+                            ),
+                            child: AnimatedAlign(
+                              duration: Duration.zero, // <- kills motion
+                              alignment: optionsViewModel.questionMarks
+                                  ? Alignment.centerRight
+                                  : Alignment.centerLeft,
+                              child: Container(
+                                width: 20,
+                                height: 20,
+                                decoration: BoxDecoration(
+                                  color: optionsViewModel.questionMarks
+                                      ? Colors.white
+                                      : Colors.black,
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),

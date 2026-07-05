@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="204.13377mm"
+   height="204.13377mm"
+   viewBox="0 0 204.13377 204.13377"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.4 (dcaf3e7d9e, 2026-05-05)"
+   sodipodi:docname="win-smile_cropped.svg"
+   inkscape:export-filename="win-smile_cropped.jpg"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.37059484"
+     inkscape:cx="-427.69079"
+     inkscape:cy="269.83646"
+     inkscape:window-width="1972"
+     inkscape:window-height="1014"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1">
+    <inkscape:path-effect
+       effect="mirror_symmetry"
+       start_point="105,23.235236"
+       end_point="105,227.36901"
+       center_point="105,125.30212"
+       id="path-effect6"
+       is_visible="true"
+       lpeversion="1.2"
+       lpesatellites=""
+       mode="vertical"
+       discard_orig_path="false"
+       fuse_paths="false"
+       oposite_fuse="false"
+       split_items="false"
+       split_open="false"
+       link_styles="false" />
+    <inkscape:path-effect
+       effect="mirror_symmetry"
+       start_point="97.445435,23.253174"
+       end_point="97.445435,227.38695"
+       center_point="97.445435,125.32006"
+       id="path-effect5"
+       is_visible="true"
+       lpeversion="1.2"
+       lpesatellites=""
+       mode="vertical"
+       discard_orig_path="false"
+       fuse_paths="false"
+       oposite_fuse="false"
+       split_items="false"
+       split_open="false"
+       link_styles="false" />
+    <inkscape:path-effect
+       effect="mirror_symmetry"
+       start_point="99.699246,32.689717"
+       end_point="99.699246,236.82349"
+       center_point="99.699246,134.7566"
+       id="path-effect4"
+       is_visible="true"
+       lpeversion="1.2"
+       lpesatellites=""
+       mode="vertical"
+       discard_orig_path="false"
+       fuse_paths="false"
+       oposite_fuse="false"
+       split_items="false"
+       split_open="false"
+       link_styles="false" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect3"
+       is_visible="true"
+       lpeversion="1" />
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect2"
+       is_visible="true"
+       lpeversion="1.3"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false"
+       uniform="false" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-2.9331102,-28.049092)">
+    <circle
+       style="fill:none;stroke:#000000;stroke-width:16.01;stroke-linecap:round;stroke-linejoin:round"
+       id="path1"
+       r="94.06189"
+       cy="130.11598"
+       cx="105" />
+    <path
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:16.01;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none"
+       d="M 93.299694,90.143605 H 50.994536 c -7.849531,0 -7.124513,25.151965 8.159327,26.402895 17.746301,1.45248 34.145831,-26.402895 34.145831,-26.402895 z m 8.291486,0 h 42.30515 c 7.84953,0 7.12452,25.151965 -8.15932,26.402895 -17.7463,1.45248 -34.14583,-26.402895 -34.14583,-26.402895 z"
+       id="path3"
+       sodipodi:nodetypes="cssc"
+       inkscape:path-effect="#path-effect5"
+       inkscape:original-d="m 93.299694,90.143605 -42.305158,0 c -7.849531,0 -7.124513,25.151965 8.159327,26.402895 17.746301,1.45248 34.145831,-26.402895 34.145831,-26.402895 z"
+       transform="translate(7.5545625,4.7959177)" />
+    <path
+       style="fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:14.01;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+       d="m 47.197533,154.23839 c 0,0 10.70179,13.79433 18.384015,17.13463 24.940887,10.8445 81.389422,5.71154 81.389422,5.71154"
+       id="path7"
+       sodipodi:nodetypes="cac" />
+  </g>
+</svg>

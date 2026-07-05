@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:minesweeper/ui/core/widgets/page_route.dart';
 import 'package:minesweeper/ui/core/widgets/simple_button.dart';
-import 'package:minesweeper/ui/page/view_models/options_view_model.dart';
 import 'package:minesweeper/ui/page/widgets/options_screen.dart';
 
 class HomeScreen extends StatefulWidget {

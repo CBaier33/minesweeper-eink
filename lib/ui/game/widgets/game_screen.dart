@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:minesweeper/ui/core/widgets/simple_appbar.dart';
 import 'package:minesweeper/ui/game/view_models/game_viewmodel.dart';
 import 'package:minesweeper/ui/game/widgets/board.dart';
+import 'package:minesweeper/ui/game/widgets/game_bar.dart';
 import 'package:provider/provider.dart';
 
 class GameScreen extends StatefulWidget {
@@ -18,8 +20,15 @@ class _GameScreenState extends State<GameScreen> {
     return ChangeNotifierProvider.value(
       value: widget.viewModel,
       child: Scaffold(
+        appBar: SimpleAppBar(title: "Minesweeper"),
         backgroundColor: Colors.white,
-        body: Center(child: Board()),
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            GameBar(),
+            Expanded(child: Board()),
+          ],
+        ),
       ),
     );
   }

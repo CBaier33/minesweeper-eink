@@ -15,7 +15,6 @@ class OptionsViewModel extends ChangeNotifier {
     difficulty = other.difficulty;
     questionMarks = other.questionMarks;
   }
-  
 }
 
 enum DifficultyLevel {
