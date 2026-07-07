@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:minesweeper/ui/core/widgets/action_modal.dart';
 import 'package:minesweeper/ui/core/widgets/simple_button.dart';
 import 'package:minesweeper/ui/game/view_models/game_viewmodel.dart';
 import 'package:minesweeper/ui/game/widgets/board.dart';
@@ -30,23 +31,18 @@ class _GameScreenState extends State<GameScreen> {
               iconSize: 36,
               icon: const Icon(Icons.arrow_back),
               onPressed: () => Navigator.pop(context),
-              style: IconButton.styleFrom(
-                overlayColor: Colors.transparent,
-              ),
+              style: IconButton.styleFrom(overlayColor: Colors.transparent),
               hoverColor: Colors.transparent,
               splashColor: Colors.transparent,
-              focusColor: Colors.transparent
-
+              focusColor: Colors.transparent,
             ),
           ),
           title: Text(
             "Minesweeper",
-            style: Theme.of(context).textTheme.titleLarge,
+            style: Theme.of(context).textTheme.titleMedium,
           ),
           backgroundColor: Colors.white,
-          shape: const Border(
-            top: BorderSide(color: Colors.black, width: 3.0),
-          ),
+          shape: const Border(top: BorderSide(color: Colors.black, width: 3.0)),
           actionsPadding: EdgeInsets.only(right: 10),
           actions: [
             Container(
@@ -58,78 +54,50 @@ class _GameScreenState extends State<GameScreen> {
               ),
               child: Center(
                 child: IconButton(
-                  icon: SvgPicture.asset('assets/pause.svg', fit: BoxFit.contain),
+                  icon: SvgPicture.asset(
+                    'assets/pause.svg',
+                    fit: BoxFit.contain,
+                  ),
                   //iconSize: 70,
                   onPressed: () {
                     widget.viewModel.pauseTimer();
-                    showModalBottomSheet<void>(
-                      context: context, 
-                      backgroundColor: Colors.white,
-                      barrierColor: Colors.transparent,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.zero,
-                      ),
-                      sheetAnimationStyle: AnimationStyle.noAnimation,
-                      enableDrag: false,
-                      builder: (BuildContext context) {
-                        return SizedBox.expand(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              border: Border(
-                                top: BorderSide(color: Colors.black, width: 3.0)
-                                )
-                              ),
-                            child: Column(
-                              
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.all(12),
-                                  child: Text("Menu", style: Theme.of(context).textTheme.titleMedium)),
-                            
-                                Center(
-                                  child: Container(
-                                    padding: EdgeInsets.all(10),
-                                    child: Column(
-                                      spacing: 10,
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                                      children: [
-                                          SimpleButton(
-                                            text: "Resume", 
-                                            filled: true,
-                                            onPressed: () {
-                                              widget.viewModel.resumeTimer();
-                                              Navigator.pop(context);
-                                            },
-                                            onLongPress: () => {}
-                                          ),
-                                                          
-                                          SimpleButton(
-                                            text: "Save & Quit", 
-                                            filled: false,
-                                            onPressed: () => {},
-                                            onLongPress: () => {}
-                                          ),
-                                                          
-                                          SimpleButton(
-                                            text: "Exit", 
-                                            filled: false,
-                                            onPressed: () => {Navigator.of(context).popUntil((route) => route.isFirst)},
-                                            onLongPress: () => {}
-                                          ),
-                                        ]
-                                      ),
-                                  ),
-                                )
-                                ]
-                              ),
+                    actionModal(
+                      context,
+                      Column(
+                        spacing: 10,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Menu",
+                            style: Theme.of(context).textTheme.titleLarge,
                           ),
-                        );
-                      });
+                        ],
+                      ),
+                      [
+                        SimpleButton(
+                          text: "Continue",
+                          filled: true,
+                          onPressed: () {
+                            widget.viewModel.resumeTimer();
+                            Navigator.pop(context);
+                          },
+                          onLongPress: () => {},
+                        ),
+
+                        SimpleButton(
+                          text: "Exit",
+                          filled: false,
+                          onPressed: () => {
+                            Navigator.of(
+                              context,
+                            ).popUntil((route) => route.isFirst),
+                          },
+                          onLongPress: () => {},
+                        ),
+                      ],
+                    );
                   },
-                  style: IconButton.styleFrom(
-                    overlayColor: Colors.transparent,
-                  ),
+                  style: IconButton.styleFrom(overlayColor: Colors.transparent),
                 ),
               ),
             ),
@@ -145,16 +113,77 @@ class _GameScreenState extends State<GameScreen> {
                 Expanded(
                   child: Container(
                     decoration: BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(color: Colors.black, width: 5.0),
-                      )
+                      border: Border(
+                        bottom: BorderSide(color: Colors.black, width: 5.0),
+                      ),
                     ),
-                    child: Board())),
+                    child: Board(),
+                  ),
+                ),
               ],
             ),
           ],
         ),
       ),
+    );
+  }
+
+  Future<void> oldactionModal(BuildContext context) {
+    return showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: Colors.white,
+      barrierColor: Colors.transparent,
+      constraints: BoxConstraints.expand(width: double.infinity),
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+      sheetAnimationStyle: AnimationStyle.noAnimation,
+      enableDrag: false,
+      builder: (BuildContext context) {
+        return SizedBox.expand(
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border(top: BorderSide(color: Colors.black, width: 3.0)),
+            ),
+            child: Column(
+              children: [
+                Text("Menu", style: Theme.of(context).textTheme.titleLarge),
+
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                      spacing: 10,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        SimpleButton(
+                          text: "Resume",
+                          filled: true,
+                          onPressed: () {
+                            widget.viewModel.resumeTimer();
+                            Navigator.pop(context);
+                          },
+                          onLongPress: () => {},
+                        ),
+
+                        SimpleButton(
+                          text: "Exit",
+                          filled: false,
+                          onPressed: () => {
+                            Navigator.of(
+                              context,
+                            ).popUntil((route) => route.isFirst),
+                          },
+                          onLongPress: () => {},
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

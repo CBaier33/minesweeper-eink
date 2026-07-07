@@ -21,12 +21,10 @@ class SimpleAppBar extends StatelessWidget implements PreferredSizeWidget {
           onPressed: () => Navigator.pop(context),
           hoverColor: Colors.transparent,
           splashColor: Colors.transparent,
-          style: IconButton.styleFrom(
-            overlayColor: Colors.transparent,
-          ),
+          style: IconButton.styleFrom(overlayColor: Colors.transparent),
         ),
       ),
-      title: Text(title, style: Theme.of(context).textTheme.titleLarge),
+      title: Text(title, style: Theme.of(context).textTheme.titleMedium),
       backgroundColor: Colors.white,
       shape: const Border(bottom: BorderSide(color: Colors.black, width: 3.0)),
     );

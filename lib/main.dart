@@ -18,11 +18,11 @@ class MyApp extends StatelessWidget {
         textTheme: TextTheme(
           titleLarge: GoogleFonts.lato(
             fontWeight: FontWeight.w900,
-            fontSize: 24,
+            fontSize: 26,
           ),
           titleMedium: GoogleFonts.lato(
-              fontWeight: FontWeight.w900,
-              fontSize: 26
+            fontWeight: FontWeight.w900,
+            fontSize: 24,
           ),
           titleSmall: GoogleFonts.lato(
             fontWeight: FontWeight.w900,

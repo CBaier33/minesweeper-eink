@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:minesweeper/services/stats_service.dart';
 import 'package:minesweeper/ui/game/widgets/cell.dart';
 import 'package:minesweeper/ui/page/view_models/options_view_model.dart';
 
@@ -10,6 +11,7 @@ class GameViewModel extends ChangeNotifier {
   }
 
   final OptionsViewModel options;
+  final StatsService _stats = StatsService();
 
   int gameState = 0;
   late BoardState boardState;
@@ -31,6 +33,8 @@ class GameViewModel extends ChangeNotifier {
   }
 
   void _checkGame() {
+    _checkFlags();
+
     int opened = 0;
 
     // Check for open mines (Lose Case)
@@ -50,7 +54,7 @@ class GameViewModel extends ChangeNotifier {
     int totalMines = options.difficulty.mines;
 
     // Win Case
-    if (opened == (gridSize - totalMines) && mineCount == 0) {
+    if (opened == (gridSize - totalMines)) {
       _endGame(2);
       return;
     }
@@ -59,14 +63,10 @@ class GameViewModel extends ChangeNotifier {
   void _endGame(int result) {
     pauseTimer();
     gameState = result;
+    bool win = (result == 2);
+    _stats.recordGame(time, options.difficulty, win);
 
-    switch (result) {
-      case 1:
-        _openAllMines();
-      // You LOSE!!
-      case 2:
-      // YOU WIN!!
-    }
+    if (!win) _openAllMines();
 
     notifyListeners();
   }
@@ -221,10 +221,26 @@ class GameViewModel extends ChangeNotifier {
 
     startTimer();
 
-    boardState[p.x][p.y].open = true;
-    _openCellys(p);
+    CellItem cell = getCell(p);
+
+    switch (cell.flagType) {
+      case FlagType.flag:
+        cell.flagType = FlagType.questionMark;
+        return;
+      case FlagType.questionMark:
+        cell.flagType = FlagType.flag;
+        return;
+      case FlagType.empty:
+        // continue
+    }
+
+    _openCell(p);
 
     _checkGame();
+
+    if (cell.value == 0 || cell.value == 9 && gameState == 0) {
+      _openCellys(p);
+    }
 
     notifyListeners();
   }
@@ -232,7 +248,7 @@ class GameViewModel extends ChangeNotifier {
   void _openCellys(CellPoint c) {
     for (int dx = -1; dx <= 1; dx++) {
       for (int dy = -1; dy <= 1; dy++) {
-        if (dx == 0 && dy == 0 || (dx + dy).abs() != 1) continue;
+        if (dx == 0 && dy == 0) continue;
 
         final nx = c.x + dx;
         final ny = c.y + dy;
@@ -243,7 +259,7 @@ class GameViewModel extends ChangeNotifier {
         CellItem nCell = getCell(neighbor);
 
         if (!nCell.open && nCell.value != 9) {
-          boardState[nx][ny].open = true;
+          _openCell(neighbor);
 
           if (nCell.value == 0) {
             _openCellys(neighbor);
@@ -253,6 +269,17 @@ class GameViewModel extends ChangeNotifier {
     }
   }
 
+  void _openCell(CellPoint c) {
+
+    CellItem cell = getCell(c);
+
+    cell.open = true;
+    cell.flagType = FlagType.empty;
+
+    _setCell(c, cell);
+    
+  }
+
   void onLongPressCell(CellPoint p) {
     if (gameState != 0) {
       return;
@@ -260,26 +287,13 @@ class GameViewModel extends ChangeNotifier {
 
     CellItem cell = getCell(p);
 
-    cell.flagType = _getNewFlagType(cell.flagType);
-
-    _checkFlags();
+    cell.flagType = (cell.flagType == FlagType.empty) ? FlagType.flag : FlagType.empty;
 
     _setCell(p, cell);
 
     _checkGame();
 
     notifyListeners();
-  }
-
-  FlagType _getNewFlagType(FlagType currFlag) {
-    FlagType newFlag = switch (currFlag) {
-      FlagType.empty => FlagType.flag,
-      FlagType.flag =>
-        (options.questionMarks) ? FlagType.questionMark : FlagType.empty,
-      FlagType.questionMark => FlagType.empty,
-    };
-
-    return newFlag;
   }
 
   void _checkFlags() {

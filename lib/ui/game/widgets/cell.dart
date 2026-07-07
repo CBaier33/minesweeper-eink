@@ -37,12 +37,13 @@ class Cell extends StatelessWidget {
               ),
             ),
             child: Center(
-              child: Text("?", 
+              child: Text(
+                "?",
                 style: (currentGame.options.difficulty == DifficultyLevel.easy)
-                    ? Theme.of(context).textTheme.titleLarge
+                    ? Theme.of(context).textTheme.titleMedium
                     : Theme.of(context).textTheme.titleSmall,
+              ),
             ),
-          )
           );
         case FlagType.flag:
           return Container(
@@ -132,7 +133,7 @@ class Cell extends StatelessWidget {
               child: Text(
                 (cell.value).toString(),
                 style: (currentGame.options.difficulty == DifficultyLevel.easy)
-                    ? Theme.of(context).textTheme.titleLarge
+                    ? Theme.of(context).textTheme.titleMedium
                     : Theme.of(context).textTheme.titleSmall,
               ),
             ),

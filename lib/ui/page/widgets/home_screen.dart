@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:minesweeper/ui/core/widgets/page_route.dart';
 import 'package:minesweeper/ui/core/widgets/simple_button.dart';
 import 'package:minesweeper/ui/page/widgets/options_screen.dart';
+import 'package:minesweeper/ui/page/widgets/stat_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -55,7 +56,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   SimpleButton(
                     text: "Statistics",
                     filled: false,
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        SimplePageRoute<void>(
+                          builder: (context) => StatScreen(),
+                        ),
+                      );
+                    },
                     onLongPress: () {},
                   ),
                 ],
