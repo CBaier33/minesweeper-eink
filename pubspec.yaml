@@ -1,5 +1,5 @@
 name: minesweeper
-description: "An implementation of minesweeper designed for e-ink displays."
+description: "An implementation of minesweeper, designed for e-ink displays."
 
 version: 1.0.0+1
 

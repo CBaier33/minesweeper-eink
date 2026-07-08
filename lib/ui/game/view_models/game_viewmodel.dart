@@ -242,7 +242,6 @@ class GameViewModel extends ChangeNotifier {
       _openCellys(p);
     }
 
-    notifyListeners();
   }
 
   void _openCellys(CellPoint c) {
@@ -277,6 +276,8 @@ class GameViewModel extends ChangeNotifier {
     cell.flagType = FlagType.empty;
 
     _setCell(c, cell);
+
+    notifyListeners();
     
   }
 
@@ -304,6 +305,7 @@ class GameViewModel extends ChangeNotifier {
       }
     }
 
+    // flags indicate how many potential mines remain
     mineCount = options.difficulty.mines - mc;
   }
 

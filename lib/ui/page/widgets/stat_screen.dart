@@ -43,6 +43,7 @@ class _StatScreenState extends State<StatScreen> {
     }
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         leadingWidth: 38,
         leading: SizedBox(
@@ -135,14 +136,14 @@ class _StatScreenState extends State<StatScreen> {
 
               StatLine(
                 label: "Win Streak",
-                value: stats!.streaks.values.fold(0, (a, b) => a + b).toString(),
+                value: stats!.streak.toString(),
               ),
 
               StatLine(
                 label: "Win Percentage",
                 value: stats!.gamesPlayed == 0
                   ? "0"
-                  : ((stats!.wins.values.fold(0, (a, b) => a + b) / stats!.gamesPlayed) * 100).toString(),
+                  : ((stats!.wins.values.fold(0, (a, b) => a + b) / stats!.gamesPlayed) * 100).toStringAsFixed(2),
                 ),
 
               StatLine(

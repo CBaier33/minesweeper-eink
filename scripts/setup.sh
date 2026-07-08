@@ -9,6 +9,3 @@ dart run flutter_launcher_icons:generate -f pubspec.yaml
 
 echo "Generating splash screen..."
 dart run flutter_native_splash:create --path=pubspec.yaml
-
-echo "Building release APK..."
-flutter build apk --release

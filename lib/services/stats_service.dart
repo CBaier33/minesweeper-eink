@@ -2,16 +2,12 @@ import 'package:minesweeper/models/game_stats.dart';
 import 'package:minesweeper/ui/page/view_models/options_view_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:minesweeper/models/game_stats.dart';
-import 'package:minesweeper/ui/page/view_models/options_view_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 class StatsService {
   static const _gamesPlayed = 'gamesPlayed';
+  static const _streak = 'streak';
 
   String _winsKey(DifficultyLevel d) => 'wins_${d.name}';
   String _lossesKey(DifficultyLevel d) => 'losses_${d.name}';
-  String _streakKey(DifficultyLevel d) => 'streak_${d.name}';
   String _bestTimeKey(DifficultyLevel d) => 'bestTime_${d.name}';
 
   static const _difficulties = [
@@ -31,9 +27,7 @@ class StatsService {
       losses: {
         for (final d in _difficulties) d: prefs.getInt(_lossesKey(d)) ?? 0,
       },
-      streaks: {
-        for (final d in _difficulties) d: prefs.getInt(_streakKey(d)) ?? 0,
-      },
+      streak: prefs.getInt(_streak) ?? 0,
       bestTimes: {
         for (final d in _difficulties) d: prefs.getInt(_bestTimeKey(d)) ?? 0,
       },
@@ -44,11 +38,11 @@ class StatsService {
     final prefs = await SharedPreferences.getInstance();
 
     await prefs.setInt(_gamesPlayed, stats.gamesPlayed);
+    await prefs.setInt(_streak, stats.streak);
 
     for (final d in _difficulties) {
       await prefs.setInt(_winsKey(d), stats.wins[d] ?? 0);
       await prefs.setInt(_lossesKey(d), stats.losses[d] ?? 0);
-      await prefs.setInt(_streakKey(d), stats.streaks[d] ?? 0);
       await prefs.setInt(_bestTimeKey(d), stats.bestTimes[d] ?? 0);
     }
   }
@@ -66,12 +60,13 @@ class StatsService {
 
     final wins = Map<DifficultyLevel, int>.from(stats.wins);
     final losses = Map<DifficultyLevel, int>.from(stats.losses);
-    final streaks = Map<DifficultyLevel, int>.from(stats.streaks);
     final bestTimes = Map<DifficultyLevel, int>.from(stats.bestTimes);
+
+    int streak = stats.streak;
 
     if (win) {
       wins[diff] = (wins[diff] ?? 0) + 1;
-      streaks[diff] = (streaks[diff] ?? 0) + 1;
+      streak++;
 
       final currentBest = bestTimes[diff] ?? 0;
       if (currentBest == 0 || seconds < currentBest) {
@@ -79,14 +74,14 @@ class StatsService {
       }
     } else {
       losses[diff] = (losses[diff] ?? 0) + 1;
-      streaks[diff] = 0;
+      streak = 0;
     }
 
     final updated = GameStats(
       gamesPlayed: stats.gamesPlayed + 1,
       wins: wins,
       losses: losses,
-      streaks: streaks,
+      streak: streak,
       bestTimes: bestTimes,
     );
 

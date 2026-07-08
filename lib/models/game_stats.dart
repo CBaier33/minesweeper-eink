@@ -5,14 +5,14 @@ class GameStats {
 
   final Map<DifficultyLevel, int> wins;
   final Map<DifficultyLevel, int> losses;
-  final Map<DifficultyLevel, int> streaks;
+  final int streak;
   final Map<DifficultyLevel, int> bestTimes;
 
   const GameStats({
     required this.gamesPlayed,
     required this.wins,
     required this.losses,
-    required this.streaks,
+    required this.streak,
     required this.bestTimes,
   });
 
@@ -28,11 +28,7 @@ class GameStats {
           DifficultyLevel.medium: 0,
           DifficultyLevel.hard: 0,
         },
-        streaks = const {
-          DifficultyLevel.easy: 0,
-          DifficultyLevel.medium: 0,
-          DifficultyLevel.hard: 0,
-        },
+        streak = 0,
         bestTimes = const {
           DifficultyLevel.easy: 0,
           DifficultyLevel.medium: 0,

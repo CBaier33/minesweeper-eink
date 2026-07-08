@@ -1,4 +1,4 @@
-package com.example.minesweeper
+package com.cbaier33.minesweeper
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -26,10 +26,10 @@ class _HomeScreenState extends State<HomeScreen> {
               Expanded(
                 child: Center(
                   child: SizedBox(
-                    height: 250,
-                    width: 250,
+                    height: 300,
+                    width: 300,
                     child: SvgPicture.asset(
-                      'assets/mine.svg',
+                      'assets/mine_stars.svg',
                       fit: BoxFit.contain,
                     ),
                   ),
