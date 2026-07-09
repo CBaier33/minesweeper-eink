@@ -33,7 +33,7 @@ class GameViewModel extends ChangeNotifier {
   }
 
   void _checkGame() {
-    _checkFlags();
+    _countFlags();
 
     int opened = 0;
 
@@ -288,6 +288,10 @@ class GameViewModel extends ChangeNotifier {
 
     CellItem cell = getCell(p);
 
+    if (cell.open) {
+      return;
+    }
+
     cell.flagType = (cell.flagType == FlagType.empty) ? FlagType.flag : FlagType.empty;
 
     _setCell(p, cell);
@@ -297,7 +301,7 @@ class GameViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void _checkFlags() {
+  void _countFlags() {
     int mc = 0;
     for (final row in boardState) {
       for (final cell in row) {
@@ -321,7 +325,7 @@ class GameViewModel extends ChangeNotifier {
         smileType = 'win';
     }
 
-    return "assets/$smileType-smile.svg";
+    return "assets/$smileType-smile.png";
   }
 
   //
