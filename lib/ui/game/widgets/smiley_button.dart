@@ -25,7 +25,7 @@ class SmileyButton extends StatelessWidget {
         child: Center(
           child: AnimatedSwitcher(
             duration: const Duration(milliseconds: 1),
-            child: SvgPicture.asset(
+            child: Image.asset(
               currentGame.getCurrentSmiley(),
               fit: BoxFit.contain,
             ),

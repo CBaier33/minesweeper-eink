@@ -23,3 +23,7 @@ mv build/app/outputs/flutter-apk/app-release.apk.sha1 \
    "build/app/outputs/flutter-apk/minesweeper-${VERSION}.apk.sha1"
 
 echo "Build completed for minesweeper-${VERSION}.apk"
+
+echo "Installing..."
+
+flutter install --use-application-binary="build/app/outputs/flutter-apk/minesweeper-${VERSION}.apk"

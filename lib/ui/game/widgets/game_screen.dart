@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:minesweeper/ui/core/widgets/action_modal.dart';
 import 'package:minesweeper/ui/core/widgets/simple_button.dart';
 import 'package:minesweeper/ui/game/view_models/game_viewmodel.dart';
@@ -54,11 +53,12 @@ class _GameScreenState extends State<GameScreen> {
               ),
               child: Center(
                 child: IconButton(
-                  icon: SvgPicture.asset(
-                    'assets/pause.svg',
+                  icon: Image.asset(
+                    'assets/pause.png',
                     fit: BoxFit.contain,
+                    filterQuality: FilterQuality.none,
                   ),
-                  //iconSize: 70,
+                  iconSize: 70,
                   onPressed: () {
                     widget.viewModel.pauseTimer();
                     actionModal(

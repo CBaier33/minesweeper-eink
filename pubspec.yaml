@@ -1,7 +1,7 @@
 name: minesweeper
 description: "An implementation of minesweeper, designed for e-ink displays."
 
-version: 1.0.0+1
+version: 1.0.1+1
 
 environment:
   sdk: ^3.11.4
@@ -10,9 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.8
   google_fonts: ^8.1.0
-  flutter_svg: ^2.3.0
   provider: ^6.1.5+1
   shared_preferences: ^2.5.5
   flutter_native_splash: ^2.4.8

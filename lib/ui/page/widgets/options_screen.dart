@@ -22,7 +22,32 @@ class _OptionsScreenState extends State<OptionsScreen> {
   void initState() {
     super.initState();
     optionsViewModel = OptionsViewModel();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _precacheImages();
+    });
   }
+
+  Future<void> _precacheImages() async {
+  const assets = [
+    'assets/flag.png',
+    'assets/mine.png',
+    'assets/engaged-smile.png',
+    'assets/lose-smile.png',
+    'assets/normal-smile.png',
+    'assets/win-smile.png',
+  ];
+
+  for (final asset in assets) {
+    try {
+      await precacheImage(
+        AssetImage(asset),
+        context,
+      );
+    } catch (e) {
+      debugPrint('Failed loading $asset: $e');
+    }
+  }
+}
 
   @override
   Widget build(BuildContext context) {

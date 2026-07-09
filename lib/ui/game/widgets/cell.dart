@@ -62,7 +62,7 @@ class Cell extends StatelessWidget {
               child: SizedBox(
                 height: 25,
                 width: 25,
-                child: SvgPicture.asset('assets/flag.svg', fit: BoxFit.contain),
+                child: Image.asset('assets/flag.png', fit: BoxFit.contain),
               ),
             ),
           );
@@ -113,7 +113,7 @@ class Cell extends StatelessWidget {
               ),
             ),
             child: Center(
-              child: SvgPicture.asset('assets/mine.svg', fit: BoxFit.contain),
+              child: Image.asset('assets/mine.png', fit: BoxFit.contain),
             ),
           );
         default:
