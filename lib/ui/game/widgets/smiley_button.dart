@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:minesweeper/ui/game/view_models/game_viewmodel.dart';
 import 'package:provider/provider.dart';
 
