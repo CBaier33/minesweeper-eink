@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:minesweeper/ui/game/view_models/game_viewmodel.dart';
 import 'package:minesweeper/ui/page/view_models/options_view_model.dart';
 import 'package:provider/provider.dart';
@@ -62,7 +61,7 @@ class Cell extends StatelessWidget {
               child: SizedBox(
                 height: 25,
                 width: 25,
-                child: SvgPicture.asset('assets/flag.svg', fit: BoxFit.contain),
+                child: Image.asset('assets/flag.png', fit: BoxFit.contain),
               ),
             ),
           );
@@ -113,7 +112,7 @@ class Cell extends StatelessWidget {
               ),
             ),
             child: Center(
-              child: SvgPicture.asset('assets/mine.svg', fit: BoxFit.contain),
+              child: Image.asset('assets/mine.png', fit: BoxFit.contain),
             ),
           );
         default:

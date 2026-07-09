@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:minesweeper/ui/game/view_models/game_viewmodel.dart';
 import 'package:provider/provider.dart';
 
@@ -25,7 +24,7 @@ class SmileyButton extends StatelessWidget {
         child: Center(
           child: AnimatedSwitcher(
             duration: const Duration(milliseconds: 1),
-            child: SvgPicture.asset(
+            child: Image.asset(
               currentGame.getCurrentSmiley(),
               fit: BoxFit.contain,
             ),

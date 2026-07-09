@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:minesweeper/ui/core/widgets/page_route.dart';
 import 'package:minesweeper/ui/core/widgets/simple_button.dart';
 import 'package:minesweeper/ui/page/widgets/options_screen.dart';
@@ -13,6 +12,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    precacheImage(
+      const AssetImage('assets/mine_stars.png'),
+      context,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,8 +38,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: SizedBox(
                     height: 300,
                     width: 300,
-                    child: SvgPicture.asset(
-                      'assets/mine_stars.svg',
+                    child: Image.asset(
+                      'assets/mine_stars.png',
                       fit: BoxFit.contain,
                     ),
                   ),
