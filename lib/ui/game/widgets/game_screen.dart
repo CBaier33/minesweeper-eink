@@ -16,6 +16,14 @@ class GameScreen extends StatefulWidget {
 }
 
 class _GameScreenState extends State<GameScreen> {
+  // The view model is built for this screen and outlives nothing, so the
+  // screen owns tearing its timer down.
+  @override
+  void dispose() {
+    widget.viewModel.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider.value(
@@ -83,6 +91,19 @@ class _GameScreenState extends State<GameScreen> {
                           },
                           onLongPress: () => {},
                         ),
+
+                        // A finished game has nothing left to come back to.
+                        if (widget.viewModel.gameState == 0)
+                          SimpleButton(
+                            text: "Save & Quit",
+                            filled: false,
+                            onPressed: () async {
+                              final navigator = Navigator.of(context);
+                              await widget.viewModel.saveGame();
+                              navigator.popUntil((route) => route.isFirst);
+                            },
+                            onLongPress: () => {},
+                          ),
 
                         SimpleButton(
                           text: "Exit",

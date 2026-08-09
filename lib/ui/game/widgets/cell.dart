@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:minesweeper/ui/game/view_models/game_viewmodel.dart';
-import 'package:minesweeper/ui/page/view_models/options_view_model.dart';
 import 'package:provider/provider.dart';
 
 class Cell extends StatelessWidget {
@@ -38,9 +37,7 @@ class Cell extends StatelessWidget {
             child: Center(
               child: Text(
                 "?",
-                style: (currentGame.options.difficulty == DifficultyLevel.easy)
-                    ? Theme.of(context).textTheme.titleMedium
-                    : Theme.of(context).textTheme.titleSmall,
+                style: Theme.of(context).textTheme.titleMedium,
               ),
             ),
           );
@@ -131,9 +128,7 @@ class Cell extends StatelessWidget {
             child: Center(
               child: Text(
                 (cell.value).toString(),
-                style: (currentGame.options.difficulty == DifficultyLevel.easy)
-                    ? Theme.of(context).textTheme.titleMedium
-                    : Theme.of(context).textTheme.titleSmall,
+                style: Theme.of(context).textTheme.titleMedium,
               ),
             ),
           );

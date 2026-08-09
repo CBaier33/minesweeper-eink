@@ -7,6 +7,11 @@ import 'package:provider/provider.dart';
 class Board extends StatelessWidget {
   const Board({super.key});
 
+  // Every difficulty uses the tile size of a full-width easy board, so cells
+  // stay equally tappable. Bigger boards overflow the screen and scroll.
+  static double tileSizeFor(double availableWidth) =>
+      availableWidth / DifficultyLevel.easy.cols;
+
   @override
   Widget build(BuildContext context) {
     GameViewModel currentGame = Provider.of<GameViewModel>(context);
@@ -15,12 +20,32 @@ class Board extends StatelessWidget {
 
     final gridSize = GridSize(x: d.cols, y: d.rows);
 
-    return GridView.builder(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: gridSize.x,
-      ),
-      itemBuilder: (context, index) => _buildCells(context, index, gridSize),
-      itemCount: gridSize.count(),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final tileSize = tileSizeFor(constraints.maxWidth);
+
+        return SingleChildScrollView(
+          physics: const ClampingScrollPhysics(),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            physics: const ClampingScrollPhysics(),
+            child: SizedBox(
+              width: tileSize * gridSize.x,
+              height: tileSize * gridSize.y,
+              child: GridView.builder(
+                padding: EdgeInsets.zero,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: gridSize.x,
+                ),
+                itemBuilder: (context, index) =>
+                    _buildCells(context, index, gridSize),
+                itemCount: gridSize.count(),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
@@ -38,6 +63,10 @@ Widget _buildCells(BuildContext context, int index, GridSize grid) {
       await Future.delayed(const Duration(milliseconds: 100));
       currentGame.setCellPressed(false);
     },
+    // A press that turns into a scroll never gets a tap/long-press end,
+    // which would otherwise leave the smiley stuck on its engaged face.
+    onTapCancel: () => currentGame.setCellPressed(false),
+    onLongPressCancel: () => currentGame.setCellPressed(false),
     onLongPressStart: (_) {
       currentGame.setCellPressed(true);
       currentGame.onLongPressCell(cell);

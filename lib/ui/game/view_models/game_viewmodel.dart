@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:minesweeper/models/saved_game.dart';
+import 'package:minesweeper/services/save_service.dart';
 import 'package:minesweeper/services/stats_service.dart';
 import 'package:minesweeper/ui/game/widgets/cell.dart';
 import 'package:minesweeper/ui/page/view_models/options_view_model.dart';
@@ -10,11 +12,29 @@ class GameViewModel extends ChangeNotifier {
     _generateBoard();
   }
 
+  /// Picks up a game stored by [SaveService] rather than dealing a new board.
+  ///
+  /// Resuming claims the slot: the stored copy only survives if the player
+  /// saves again on the way out.
+  GameViewModel.resume({required this.options, required SavedGame save}) {
+    boardState = save.board;
+    time = save.time;
+    _slotHoldsThisGame = true;
+    _countFlags();
+  }
+
   final OptionsViewModel options;
   final StatsService _stats = StatsService();
+  final SaveService _saves = SaveService();
 
   int gameState = 0;
   late BoardState boardState;
+
+  // True while the stored slot holds *this* game, still in progress. Any way
+  // out other than saving again has to clear it, or a game the player already
+  // finished or walked away from stays offered in the menu. A game started
+  // fresh never sets this, so it can't delete someone else's save.
+  bool _slotHoldsThisGame = false;
 
   late int mineCount = options.difficulty.mines;
   bool cellPressedDown = false;
@@ -23,6 +43,7 @@ class GameViewModel extends ChangeNotifier {
   int time = 0;
   bool _running = false;
   bool _paused = false;
+  bool _disposed = false;
 
   bool menuOpen = false;
 
@@ -66,9 +87,38 @@ class GameViewModel extends ChangeNotifier {
     bool win = (result == 2);
     _stats.recordGame(time, options.difficulty, win);
 
+    // Won or lost, there is nothing left to come back to.
+    unawaited(discardSave());
+
     if (!win) _openAllMines();
 
     notifyListeners();
+  }
+
+  /// Parks the game in its difficulty's slot so it can be resumed later.
+  Future<void> saveGame() async {
+    pauseTimer();
+
+    await _saves.save(
+      SavedGame(
+        difficulty: options.difficulty,
+        board: boardState,
+        time: time,
+        questionMarks: options.questionMarks,
+      ),
+    );
+
+    // The stored copy is now a deliberate snapshot, not this live game.
+    _slotHoldsThisGame = false;
+  }
+
+  /// Clears the slot unless the player saved on the way out. Safe to call on
+  /// any exit path, including twice.
+  Future<void> discardSave() async {
+    if (!_slotHoldsThisGame) return;
+
+    _slotHoldsThisGame = false;
+    await _saves.delete(options.difficulty);
   }
 
   void _openAllMines() {
@@ -231,7 +281,7 @@ class GameViewModel extends ChangeNotifier {
         cell.flagType = FlagType.flag;
         return;
       case FlagType.empty:
-        // continue
+      // continue
     }
 
     _openCell(p);
@@ -241,7 +291,6 @@ class GameViewModel extends ChangeNotifier {
     if (cell.value == 0 || cell.value == 9 && gameState == 0) {
       _openCellys(p);
     }
-
   }
 
   void _openCellys(CellPoint c) {
@@ -269,7 +318,6 @@ class GameViewModel extends ChangeNotifier {
   }
 
   void _openCell(CellPoint c) {
-
     CellItem cell = getCell(c);
 
     cell.open = true;
@@ -278,7 +326,6 @@ class GameViewModel extends ChangeNotifier {
     _setCell(c, cell);
 
     notifyListeners();
-    
   }
 
   void onLongPressCell(CellPoint p) {
@@ -292,7 +339,9 @@ class GameViewModel extends ChangeNotifier {
       return;
     }
 
-    cell.flagType = (cell.flagType == FlagType.empty) ? FlagType.flag : FlagType.empty;
+    cell.flagType = (cell.flagType == FlagType.empty)
+        ? FlagType.flag
+        : FlagType.empty;
 
     _setCell(p, cell);
 
@@ -365,6 +414,22 @@ class GameViewModel extends ChangeNotifier {
     _running = false;
     _paused = false;
     notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    _disposed = true;
+    _timer?.cancel();
+    _timer = null;
+    super.dispose();
+  }
+
+  // Leaving the screen can outrun a pending callback (the delayed cell
+  // release, most easily), so swallow notifications once we're gone.
+  @override
+  void notifyListeners() {
+    if (_disposed) return;
+    super.notifyListeners();
   }
 }
 

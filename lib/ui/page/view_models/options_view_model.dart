@@ -18,17 +18,19 @@ class OptionsViewModel extends ChangeNotifier {
 }
 
 enum DifficultyLevel {
-  easy(cols: 9, rows: 9, mines: 10),
-  medium(cols: 16, rows: 16, mines: 40),
-  hard(cols: 16, rows: 30, mines: 99);
+  easy(cols: 9, rows: 9, mines: 10, label: "Easy"),
+  medium(cols: 16, rows: 16, mines: 40, label: "Medium"),
+  hard(cols: 16, rows: 30, mines: 99, label: "Hard");
 
   const DifficultyLevel({
     required this.cols,
     required this.rows,
     required this.mines,
+    required this.label,
   });
 
   final int cols;
   final int rows;
   final int mines;
+  final String label;
 }
